@@ -53,7 +53,8 @@ def calc_sessions(df, timestamp_col, cap_gap_minutes=5, pat_session=False):
             df.loc[(df['pat_curr'] == 'SESSION_START') |
                    ((df['pat_curr'] != df['pat_curr'].shift(1)) & (df['pat_curr'].shift(1) != 'SESSION_START')),
             'pat_switch'] = 1
-            return df
+            # n_pat_switch = len(df[df['pat_switch']==1])
+            return df  # , n_pat_switch
 
         df = catch_pat_switch(df)
         df.loc[df['pat_switch'] == 1, 'session_ID'] = df['USER_ID'] + "_" + df['ACCESS_TIME'].astype(str)
